@@ -30,13 +30,16 @@ class WeatherData:
         openmeteo = openmeteo_requests.Client() 
         url = "https://archive-api.open-meteo.com/v1/archive"
         params = {
-             "latitude": self.latitude,
-             "longitude": self.longitude,
-             "start_date": self.date,
-             "end_date": self.date,
-             # Order matters --> returns responses in same order as declared here
-             "daily": ["temperature_2m_mean", "temperature_2m_min", "temperature_2m_max",
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "start_date": self.date,
+            "end_date": self.date,
+            # Order matters --> returns responses in same order as declared here
+            "daily": ["temperature_2m_mean", "temperature_2m_min", "temperature_2m_max",
                        "wind_speed_10m_max", "precipitation_sum"],
+            "temperature_unit": "fahrenheit",
+            "wind_speed_unit": "mph",
+            "precipitation_unit": "inch",
         }
 
         # Get response data for start-end dates returned as an array (should be same day for us)
@@ -50,4 +53,8 @@ class WeatherData:
         daily = response.Daily()
         # daily.Variables holds all of the goodies in the order we specified above ^^!
         # Collect our required data from daily.Variables and then repeat for past 5yrs
-        print(daily.Variables(0).ValuesAsNumpy()) # Don't know why IDE flags as error
+
+        # VSStudio throws the dumbest errors if I try and word-wrap this...
+        print(f"temperature_2m_mean : {daily.Variables(0).ValuesAsNumpy()}\ntemperature_2m_min : {daily.Variables(1).ValuesAsNumpy()}\ntemperature_2m_max : {daily.Variables(2).ValuesAsNumpy()}") # type: ignore
+        print(f"wind_speed_10m_max : {daily.Variables(3).ValuesAsNumpy()}") # type: ignore
+        print(f"precipitation_sum : {daily.Variables(4).ValuesAsNumpy()}") # type: ignore
