@@ -1,5 +1,6 @@
-import weather_class
+from weather_class import WeatherData
 
 # -- I think this is start of C3? -- #
-randPlace = weather_class.WeatherData(20, 30, "2026-05-04")
-randPlace.fetch_weather_data()
+# Charlotte Motor Speedway in time for Carolina Rebellion!
+CharMtrSpeedway= WeatherData(latitude=35.3515, longitude=80.6834, date="2026-05-04")
+CharMtrSpeedway.fetch_weather_data()

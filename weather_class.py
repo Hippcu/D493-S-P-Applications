@@ -3,7 +3,7 @@ import openmeteo_requests
 class WeatherData:
     # Location and Date from user
     # date expected to be in (year-month-day) format
-    def __init__(self, latitude, longitude, date: str): 
+    def __init__(self, latitude: float, longitude: float, date: str): 
         self.latitude = latitude
         self.longitude = longitude
         self.date = date
@@ -48,3 +48,4 @@ class WeatherData:
 
         daily = response.Daily()
         # daily.Variables holds all of the goodies 
+        # Collect oour required data from daily.Variables and then repeat for past 5yrs
