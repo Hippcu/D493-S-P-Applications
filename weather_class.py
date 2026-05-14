@@ -26,6 +26,7 @@ class WeatherData:
     # -- Start of C2 -- #
     # Method to fetch weather data from WeatherAPI (openmeteo)*
     def fetch_weather_data(self):
+        # Could cache/retry this connection
         openmeteo = openmeteo_requests.Client() 
         url = "https://archive-api.open-meteo.com/v1/archive"
         params = {
@@ -47,5 +48,6 @@ class WeatherData:
         print(f"Timezone difference to GMT+0: {response.UtcOffsetSeconds()}s")
 
         daily = response.Daily()
-        # daily.Variables holds all of the goodies 
-        # Collect oour required data from daily.Variables and then repeat for past 5yrs
+        # daily.Variables holds all of the goodies in the order we specified above ^^!
+        # Collect our required data from daily.Variables and then repeat for past 5yrs
+        print(daily.Variables(0).ValuesAsNumpy()) # Don't know why IDE flags as error
