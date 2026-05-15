@@ -37,6 +37,7 @@ class WeatherData:
             # Order matters --> returns responses in same order as declared here
             "daily": ["temperature_2m_mean", "temperature_2m_min", "temperature_2m_max",
                        "wind_speed_10m_max", "precipitation_sum"],
+            "timezone": "America/New_York", # Charlotte Motor Speedway (Charlotte, NC) Doesn't NEED to be hardcoded
             "temperature_unit": "fahrenheit",
             "wind_speed_unit": "mph",
             "precipitation_unit": "inch",
@@ -46,10 +47,12 @@ class WeatherData:
         responses = openmeteo.weather_api(url=url, params=params)
         # The day we need is the first one (the only one for us)
         response = responses[0]
-        print(f"Coordinates: {response.Latitude()}°N {response.Longitude()}°E")
+        print(f"Coordinates: {response.Latitude()}°N | {response.Longitude()}°E")
         print(f"Elevation: {response.Elevation()} m asl")
-        print(f"Timezone difference to GMT+0: {response.UtcOffsetSeconds()}s")
+        print(f"Timezone: {response.Timezone()}{response.TimezoneAbbreviation()}")
 
+
+        # Repeat and avg 5 years worth
         daily = response.Daily()
         # daily.Variables holds all of the goodies in the order we specified above ^^!
         # Collect our required data from daily.Variables and then repeat for past 5yrs
