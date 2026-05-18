@@ -54,7 +54,7 @@ class WeatherData:
 
         # Repeat and avg 5 years worth
         daily = response.Daily()
-        # daily.Variables holds all of the goodies in the order we specified above ^^!
+        # daily.Variables holds all of the goodies in the order we specified above 
         # Collect our required data from daily.Variables and then repeat for past 5yrs
 
         # VSStudio throws the dumbest errors if I try and word-wrap this...
